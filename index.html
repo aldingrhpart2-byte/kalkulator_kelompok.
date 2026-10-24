@@ -1,0 +1,259 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkulator - KELOMPOK 3</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+            color: white;
+            background: linear-gradient(135deg, #a31092, #070411, #12cbe4);
+        }
+
+        .kalkulator {
+            width: 100%;
+            max-width: 400px;
+            padding: 28px;
+            background: rgba(20, 25, 45, 0.95);
+            border: 1px solid #535a80;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        h1 {
+            text-align: center;
+            margin: 0;
+            font-size: 30px;
+            letter-spacing: 2px;
+        }
+
+        .subjudul {
+            text-align: center;
+            color: #aeb9d5;
+            margin: 10px 0 25px;
+        }
+
+        .anggota {
+            padding: 14px;
+            margin-bottom: 22px;
+            border-radius: 12px;
+            background: #242b45;
+            text-align: center;
+        }
+
+        .anggota h3 {
+            margin: 0 0 10px;
+            color: #61e7ff;
+            font-size: 14px;
+        }
+
+        .anggota p {
+            margin: 6px 0;
+            font-size: 13px;
+            color: #e0e6f5;
+        }
+
+        label {
+            display: block;
+            margin: 14px 0 7px;
+            font-size: 14px;
+        }
+
+        select, input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #515b7c;
+            border-radius: 9px;
+            background: #151c30;
+            color: white;
+            font-size: 16px;
+            outline: none;
+        }
+
+        select:focus, input:focus {
+            border-color: #61e7ff;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 20px;
+            padding: 13px;
+            border: none;
+            border-radius: 9px;
+            background: linear-gradient(90deg, #00c6ff, #7b61ff);
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            filter: brightness(1.1);
+        }
+
+        .hasil {
+            margin-top: 20px;
+            padding: 16px;
+            border-radius: 10px;
+            background: #242b45;
+            text-align: center;
+            overflow-wrap: anywhere;
+        }
+
+        .hasil h3 {
+            margin: 0 0 10px;
+            color: #61e7ff;
+        }
+
+        #hasil {
+            font-size: 21px;
+            font-weight: bold;
+        }
+
+        #pesan {
+            color: #ffb4b4;
+            font-size: 13px;
+        }
+
+        footer {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 11px;
+            color: #9da9c7;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="kalkulator">
+        <h1>KALKULATOR</h1>
+        <p class="subjudul">Kalkulator Sederhana</p>
+
+        <div class="anggota">
+            <h3>POWERED BY</h3>
+            <p>IBNU</p>
+            <p>ADITYA</p>
+            <p>ALDI</p>
+            <p>RAMA</p>
+            <p>KAYLA</p>
+            <p>TALISYA</p>
+        </div>
+
+        <label for="operasi">Pilihan Operasi</label>
+        <select id="operasi">
+            <option value="1">1. Tambah (+)</option>
+            <option value="2">2. Kurang (-)</option>
+            <option value="3">3. Bagi (÷)</option>
+            <option value="4">4. Kali (×)</option>
+        </select>
+
+        <label for="angka1">Nilai Pertama</label>
+        <input type="number" id="angka1" placeholder="Masukkan angka pertama" step="any">
+
+        <label for="angka2">Nilai Kedua</label>
+        <input type="number" id="angka2" placeholder="Masukkan angka kedua" step="any">
+
+        <button onclick="hitung()">HITUNG HASIL</button>
+
+        <div class="hasil">
+            <h3>HASIL PERHITUNGAN</h3>
+            <div id="hasil">0</div>
+            <p id="pesan"></p>
+        </div>
+
+        <button onclick="resetKalkulator()" style="background:#424b66;">
+            RESET
+        </button>
+
+        <footer>
+            © 2026 Kalkulator Sederhana
+        </footer>
+    </div>
+
+    <script>
+        function hitung() {
+            const operasi = document.getElementById("operasi").value;
+            const x = document.getElementById("angka1").value;
+            const y = document.getElementById("angka2").value;
+
+            const hasilElement = document.getElementById("hasil");
+            const pesanElement = document.getElementById("pesan");
+
+            if (x.trim() === "" || y.trim() === "") {
+                hasilElement.textContent = "-";
+                pesanElement.textContent = "Masukkan kedua nilai terlebih dahulu!";
+                return;
+            }
+
+            const a = Number(x);
+            const b = Number(y);
+            let hasil;
+            let simbol;
+
+            switch (operasi) {
+                case "1":
+                    hasil = a + b;
+                    simbol = "+";
+                    break;
+
+                case "2":
+                    hasil = a - b;
+                    simbol = "-";
+                    break;
+
+                case "3":
+                    if (b === 0) {
+                        hasilElement.textContent = "-";
+                        pesanElement.textContent =
+                            "Angka kedua tidak boleh 0 untuk pembagian!";
+                        return;
+                    }
+                    hasil = a / b;
+                    simbol = "÷";
+                    break;
+
+                case "4":
+                    hasil = a * b;
+                    simbol = "×";
+                    break;
+            }
+
+            if (!Number.isFinite(hasil)) {
+                hasilElement.textContent = "-";
+                pesanElement.textContent = "Hasil perhitungan terlalu besar!";
+                return;
+            }
+
+            hasilElement.textContent =
+                `${a} ${simbol} ${b} = ${Number(hasil.toPrecision(12))}`;
+
+            pesanElement.textContent = "";
+        }
+
+        function resetKalkulator() {
+            document.getElementById("angka1").value = "";
+            document.getElementById("angka2").value = "";
+            document.getElementById("operasi").value = "1";
+            document.getElementById("hasil").textContent = "0";
+            document.getElementById("pesan").textContent = "";
+        }
+    </script>
+
+</body>
+</html>
